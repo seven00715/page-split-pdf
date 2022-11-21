@@ -1,14 +1,17 @@
 <template>
-  <el-table :data="tableData" border style="width: 100%;">
-    <el-table-column prop="index" label="编号" width="180"></el-table-column>
-    <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-    <el-table-column prop="address" label="地址"></el-table-column>
+  <el-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%; margin-top: 20px">
+    <el-table-column prop="name" width="100" label="姓名">
+    </el-table-column>
+    <el-table-column prop="address" width="200" label="数值 2（元）">
+    </el-table-column>
+    <el-table-column prop="age" label="数值 2（元）">
+    </el-table-column>
   </el-table>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-const num = 20 + Math.ceil(Math.random() * 50)
+const num = 120 + Math.ceil(Math.random() * 50)
 const data: any = []
 
 @Component({
@@ -16,13 +19,29 @@ const data: any = []
 })
 export default class extends Vue {
   tableData: any = []
+  //@ts-ignore
+  objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+    if (columnIndex === 0) {
+      if (rowIndex % 5 === 0) {
+        return {
+          rowspan: 5,
+          colspan: 1
+        };
+      } else {
+        return {
+          rowspan: 0,
+          colspan: 0
+        };
+      }
+    }
+  }
   mounted() {
     let data = []
     for (let i = 0; i < num; i++) {
       data.push({
-        index: i + 1,
         name: '王小虎 - ' + (i + 1),
-        address: `上海市普陀区金沙江路${i + 1}弄`,
+        address: `金沙江路${i + 1}弄`,
+        age: '年龄:' + (i + 1)
       })
     }
 
@@ -30,4 +49,6 @@ export default class extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

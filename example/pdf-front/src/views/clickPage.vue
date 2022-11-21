@@ -10,12 +10,8 @@
       <div v-if="isVisible" id="isPDFVisible"></div>
     </div>
 
-    <el-button
-      style="position: fixed; top: 20px; right: 20px;"
-      type="button"
-      class="el-button el-button--default el-button--small el-button--primary"
-      @click="onClickDownload"
-    >
+    <el-button style="position: fixed; top: 20px; right: 20px;" type="button"
+      class="el-button el-button--default el-button--small el-button--primary" @click="onClickDownload">
       window.print 纯前端 点击下载
     </el-button>
   </div>
@@ -27,7 +23,7 @@ import { mixins } from 'vue-class-component'
 import pdfTpl from './pdfTpl/index.vue'
 import print from './print.vue'
 // import { Print } from 'nb-fe-pdf'
-import { Print } from 'nb-fe-pdf'
+import { Print } from '../../../../index'
 import downloadMixins from './downloadMixins'
 import step from './step/index.vue'
 
