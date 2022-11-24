@@ -97,6 +97,7 @@ export default class PdfPage {
   }
 
   getPageType(ele: HTMLElement) {
+    //@ts-ignore
     const TYPES = Object.values(PrintType);
     const type = Array.from(ele.classList).find((item) =>
       TYPES.includes(item as PrintType)

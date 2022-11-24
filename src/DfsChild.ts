@@ -71,7 +71,7 @@ export default class DfsChild extends PdfPage {
     // console.log("getMinHeight tbModuleInfo", tbModuleInfo);
     tbModuleInfo.minHeight = this.getMinHeight(
       ele,
-      tbModuleInfo as TbModuleInfo,
+      tbModuleInfo as unknown as TbModuleInfo,
       height
     );
     let marginPadHeight =

@@ -107,12 +107,10 @@ export default class SplitePage extends DfsChild {
                 100,
                 ModuleType.TBODY
               );
-              const { needMergeRow, needRowSpanNum, isLeftRow } =
-                row.mergedInfo;
-              console.log("needRowSpanNum", needRowSpanNum);
+              const { needMergeRow, isLeftRow } = (row as CurrentStyleElement)
+                .mergedInfo;
               if (needMergeRow && isLeftRow) {
                 let td = document.createElement("td");
-                td.setAttribute("rowspan", needRowSpanNum);
                 td.classList.add("el-table_1_column_1");
                 td.classList.add("el-table__cell");
                 row.prepend(td);
