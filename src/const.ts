@@ -6,6 +6,7 @@ export default class Const {
 
   static spliteFlagWraper = "page-splite-flag-wraper";
   static spliteFlag = "page-splite-flag"; // 固定模块flag class标识
+  static tableRowSpanMerge = "table-rowspan-merge";
 
   static tableClass = "card-table"; // table class 标识
   static cardTableTopWraper = "card-table-top-wraper";

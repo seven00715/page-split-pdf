@@ -59,6 +59,11 @@ export default class DfsChild extends PdfPage {
   }
 
   getTableModuleInfo(ele: HTMLElement, height: number) {
+    console.log("getTableModuleInfo ele", ele);
+    let needMerge = ele.classList.contains(Const.tableRowSpanMerge);
+    if (needMerge) {
+      this.setRowSpanMergeInfo(ele);
+    }
     const tbModuleInfo = {
       tbTopInfo: this.getEleHeight(ele, Const.cardTableTopWraper),
       tbHeader: this.getEleHeight(ele, Const.cardTableTBHeaderWraper),
@@ -66,8 +71,9 @@ export default class DfsChild extends PdfPage {
       tbBomInfo: this.getEleHeight(ele, Const.cardTableBomWraper),
       minHeight: 0,
       marginPadHeight: 0,
-      ...this.setRowSpanMergeInfo(ele),
+      needMerge,
     };
+
     // console.log("getMinHeight tbModuleInfo", tbModuleInfo);
     tbModuleInfo.minHeight = this.getMinHeight(
       ele,
@@ -113,56 +119,54 @@ export default class DfsChild extends PdfPage {
   }
 
   setRowSpanMergeInfo(ele) {
-    const rows = ele.querySelectorAll("." + Const.cardElRowClass);
-    let needMergeRow = false;
-    const mergeTdArgs = [];
-    let num = 0;
-    let totalRowSpan = 1;
-    rows.forEach((row, rowIndex) => {
-      console.log("row", row);
-      const tds = row.childNodes;
-      let mergedInfo = {
-        needMergeRow: false,
-        rowIndex,
-        tdIndex: null,
-        needRowSpanNum: 1,
-      };
-
-      if (num > 1) {
-        num--;
-        Object.assign(mergedInfo, {
-          needMergeRow: true,
-          isLeftRow: true,
+    let needMerge = ele.classList.contains(Const.tableRowSpanMerge);
+    if (needMerge) {
+      const rows = ele.querySelectorAll("." + Const.cardElRowClass);
+      let needMergeRow = false;
+      const mergeTdArgs = [];
+      let num = 0;
+      let totalRowSpan = 1;
+      rows.forEach((row, rowIndex) => {
+        console.log("row", row);
+        const tds = row.childNodes;
+        let mergedInfo = {
+          needMergeRow: false,
           rowIndex,
           tdIndex: null,
-          needRowSpanNum: num,
-        });
-      } else {
-        tds.forEach((td, tdIndex) => {
-          const rowSpan = td.getAttribute("rowspan");
-          if (rowSpan > 1) {
-            needMergeRow = true;
-            num = rowSpan;
-            Object.assign(mergedInfo, {
-              needMergeRow: true,
-              rowIndex,
-              tdIndex,
-              needRowSpanNum: Number(rowSpan),
-            });
-            totalRowSpan = rowSpan;
-          }
-        });
-      }
-      row.mergedInfo = mergedInfo;
-      // row.rowIndex = rowIndex;
-      // row.needMergeRow = needMergeRow;
-      // row.mergeTdArgs = mergeTdArgs;
-    });
+          needRowSpanNum: 1,
+        };
 
-    return {
-      needMergeRow,
-      mergeTdArgs,
-    };
+        if (num > 1) {
+          num--;
+          Object.assign(mergedInfo, {
+            needMergeRow: true,
+            isLeftRow: true,
+            rowIndex,
+            tdIndex: null,
+            needRowSpanNum: num,
+          });
+        } else {
+          tds.forEach((td, tdIndex) => {
+            const rowSpan = td.getAttribute("rowspan");
+            if (rowSpan > 1) {
+              needMergeRow = true;
+              num = rowSpan;
+              Object.assign(mergedInfo, {
+                needMergeRow: true,
+                rowIndex,
+                tdIndex,
+                needRowSpanNum: Number(rowSpan),
+              });
+              totalRowSpan = rowSpan;
+            }
+          });
+        }
+        row.mergedInfo = mergedInfo;
+        // row.rowIndex = rowIndex;
+        // row.needMergeRow = needMergeRow;
+        // row.mergeTdArgs = mergeTdArgs;
+      });
+    }
   }
 
   getEleHeight(ele: HTMLElement, className: string) {

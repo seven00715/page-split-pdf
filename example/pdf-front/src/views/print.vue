@@ -1,11 +1,8 @@
 <template>
   <div class="print">
-    <HelloWorld
-      class="page-splite-flag"
-      msg="Welcome to Your Vue.js + TypeScript App"
-    />
+    <HelloWorld class="page-splite-flag" msg="Welcome to Your Vue.js + TypeScript App" />
 
-    <card-table>
+    <card-table class="table-rowspan-merge">
       <template #card-table-header>
         <div style="text-align: left;">
           <h2 class="module-title">模块2 指标分析头部说明</h2>
@@ -34,16 +31,12 @@
 
     <div class="chart-wrapper page-splite-flag">
       <h2 class="chart-info">模块3 module3 图表模块</h2>
-      <line-chart
-        id="line-chart-one"
-        style="
+      <line-chart id="line-chart-one" style="
           width: 90%;
           height: 300px;
           box-sizing: border-box;
           margin: 20px auto;
-        "
-        :option="optionData"
-      />
+        " :option="optionData" />
       <div class="flex-row-between">
         <div></div>
         <div>
@@ -162,21 +155,25 @@ export default class printView extends Vue {
   line-height: 30px;
   margin-top: 20px;
 }
+
 .print {
   width: 100%;
   margin: 0 auto;
 }
+
 .chart-info {
   text-align: left;
 }
-.chart-wrapper {
-}
+
+.chart-wrapper {}
+
 .flex-row-between {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
+
 .info {
   line-height: 30px;
 }

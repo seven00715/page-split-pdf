@@ -31,14 +31,11 @@ export default class SplitePage extends DfsChild {
       tbBomInfo,
       minHeight,
       marginPadHeight,
-      needMergeRow,
-      mergeTdArgs,
+      needMerge,
     } = moduleInfo.tableModuleInfo;
     const tbQueue: TbModuleInfoItem[] = [tbTopInfo, table, tbBomInfo].filter(
       (item) => item.height > 5
     );
-    console.log("xxx needMergeRow", needMergeRow);
-    console.log("xxx mergeTdArgs", mergeTdArgs);
     if (distance < minHeight) {
       distance = this.createWraper(ele) - marginPadHeight;
     } else {
@@ -107,14 +104,17 @@ export default class SplitePage extends DfsChild {
                 100,
                 ModuleType.TBODY
               );
-              const { needMergeRow, isLeftRow, needRowSpanNum } = (row as CurrentStyleElement)
-                .mergedInfo;
-              if (needMergeRow && isLeftRow) {
-                let td = document.createElement("td");
-                td.classList.add("el-table_1_column_1");
-                td.classList.add("el-table__cell");
-                td.setAttribute('rowspan', String(needRowSpanNum))
-                row.prepend(td);
+              if (needMerge) {
+                const { needMergeRow, isLeftRow, needRowSpanNum } = (
+                  row as CurrentStyleElement
+                ).mergedInfo;
+                if (needMergeRow && isLeftRow) {
+                  let td = document.createElement("td");
+                  td.classList.add("el-table_1_column_1");
+                  td.classList.add("el-table__cell");
+                  td.setAttribute("rowspan", String(needRowSpanNum));
+                  row.prepend(td);
+                }
               }
               distance = this.appendModule(
                 row as Element,
