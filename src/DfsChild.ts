@@ -123,7 +123,7 @@ export default class DfsChild extends PdfPage {
       const tds = row.childNodes;
       let mergedInfo = {
         needMergeRow: false,
-        rowIndex: 0,
+        rowIndex,
         tdIndex: null,
         needRowSpanNum: 1,
       };
