@@ -104,16 +104,21 @@ export default class SplitePage extends DfsChild {
                 100,
                 ModuleType.TBODY
               );
+
               if (needMerge) {
+                console.log(
+                  "needMerge",
+                  (row as CurrentStyleElement).mergedInfo
+                );
                 const { needMergeRow, isLeftRow, needRowSpanNum } = (
                   row as CurrentStyleElement
                 ).mergedInfo;
-                if (needMergeRow && isLeftRow) {
+                if (needMergeRow && isLeftRow && needRowSpanNum) {
                   let td = document.createElement("td");
                   td.classList.add("el-table_1_column_1");
                   td.classList.add("el-table__cell");
                   td.setAttribute("rowspan", String(needRowSpanNum));
-                  row.prepend(td);
+                  row && row.prepend(td);
                 }
               }
               distance = this.appendModule(

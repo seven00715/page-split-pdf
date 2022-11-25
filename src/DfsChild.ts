@@ -59,11 +59,6 @@ export default class DfsChild extends PdfPage {
   }
 
   getTableModuleInfo(ele: HTMLElement, height: number) {
-    console.log("getTableModuleInfo ele", ele);
-    let needMerge = ele.classList.contains(Const.tableRowSpanMerge);
-    if (needMerge) {
-      this.setRowSpanMergeInfo(ele);
-    }
     const tbModuleInfo = {
       tbTopInfo: this.getEleHeight(ele, Const.cardTableTopWraper),
       tbHeader: this.getEleHeight(ele, Const.cardTableTBHeaderWraper),
@@ -71,7 +66,6 @@ export default class DfsChild extends PdfPage {
       tbBomInfo: this.getEleHeight(ele, Const.cardTableBomWraper),
       minHeight: 0,
       marginPadHeight: 0,
-      needMerge,
     };
 
     // console.log("getMinHeight tbModuleInfo", tbModuleInfo);
@@ -80,12 +74,18 @@ export default class DfsChild extends PdfPage {
       tbModuleInfo as unknown as TbModuleInfo,
       height
     );
+    let needMerge = ele.classList.contains(Const.tableRowSpanMerge);
+    if (needMerge) {
+      this.setRowSpanMergeInfo(ele);
+    }
     let marginPadHeight =
       height -
       (tbModuleInfo.tbTopInfo.height +
         tbModuleInfo.table.height +
         tbModuleInfo.tbBomInfo.height);
     tbModuleInfo.marginPadHeight = marginPadHeight;
+    //@ts-ignore
+    tbModuleInfo.needMerge = needMerge;
     return tbModuleInfo;
   }
   /**
@@ -99,11 +99,6 @@ export default class DfsChild extends PdfPage {
 
     if (nodes.length > Const.minRowsCount) {
       nodes.forEach((node, index) => {
-        console.log("node.clientHeight", node.clientHeight);
-        console.log(
-          "calcHeight(node as HTMLElement)",
-          calcHeight(node as HTMLElement)
-        );
         if (index < Const.minRowsCount) {
           threeRowHeight += calcHeight(node as HTMLElement) || 0;
         }
@@ -118,22 +113,21 @@ export default class DfsChild extends PdfPage {
     }
   }
 
-  setRowSpanMergeInfo(ele) {
+  setRowSpanMergeInfo(ele: HTMLElement) {
     let needMerge = ele.classList.contains(Const.tableRowSpanMerge);
     if (needMerge) {
       const rows = ele.querySelectorAll("." + Const.cardElRowClass);
-      let needMergeRow = false;
       const mergeTdArgs = [];
       let num = 0;
       let totalRowSpan = 1;
       rows.forEach((row, rowIndex) => {
-        console.log("row", row);
-        const tds = row.childNodes;
+        const tds = row.children;
         let mergedInfo = {
           needMergeRow: false,
           rowIndex,
           tdIndex: null,
           needRowSpanNum: 1,
+          isLeftRow: false,
         };
 
         if (num > 1) {
@@ -146,10 +140,9 @@ export default class DfsChild extends PdfPage {
             needRowSpanNum: num,
           });
         } else {
-          tds.forEach((td, tdIndex) => {
-            const rowSpan = td.getAttribute("rowspan");
+          Array.from(tds).forEach((td: Element, tdIndex) => {
+            const rowSpan = Number((td as HTMLElement).getAttribute("rowspan"));
             if (rowSpan > 1) {
-              needMergeRow = true;
               num = rowSpan;
               Object.assign(mergedInfo, {
                 needMergeRow: true,
@@ -161,19 +154,19 @@ export default class DfsChild extends PdfPage {
             }
           });
         }
-        row.mergedInfo = mergedInfo;
+        (row as CurrentStyleElement).mergedInfo = mergedInfo;
         // row.rowIndex = rowIndex;
         // row.needMergeRow = needMergeRow;
         // row.mergeTdArgs = mergeTdArgs;
       });
     }
+    return needMerge;
   }
 
   getEleHeight(ele: HTMLElement, className: string) {
     const module: HTMLElement = ele.querySelector(
       "." + className
     ) as HTMLElement;
-    // console.log(" getMinHeight module", module);
     if (ele && module) {
       return {
         module,

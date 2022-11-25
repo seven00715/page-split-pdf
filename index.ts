@@ -51,7 +51,7 @@ export interface CurrentStyleElement extends Element {
   };
   calcHeight: number;
   mergedInfo: {
-    needMergeRow: number;
+    needMergeRow: boolean;
     needRowSpanNum: number;
     isLeftRow: boolean;
   };
@@ -115,12 +115,4 @@ export interface MarkConfig {
   waterMarkWidth?: number; // 水印宽度
   waterMarkHeight?: number; // 水印高度
   waterMarkAngle?: number; // 水印旋转角度
-}
-
-export interface IRow extends Element {
-  mergedInfo: {
-    needMergeRow: number;
-    needRowSpanNum: number;
-    isLeftRow: boolean;
-  };
 }
