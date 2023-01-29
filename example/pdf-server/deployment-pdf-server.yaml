@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-backend
+spec:
+  selector:
+    matchLabels:
+      app: cicd-backend
+  replicas: 2 # 启动多进程，pod副本的数量，也就是多进程中进程的数量
+  template:
+    metadata:
+      labels:
+      - app: pdf-server #  需要配套
+    spec:
+      imagePullSecrets: # 要拉取私有仓库的镜像,需要提供认证信息,认证信息放在imagePullSecrets里面
+      - name: private-registry
+      containers:
+      - name: pdf-server
+        imagePullPolicy: Always # 镜像拉取策略,总是拉取最新镜像
+        image: xxxx:9092/pdf-server:20221204195405
+        ports:
+        - containerPort: 7001
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: host
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: port
+        - name: MYSQL_DATABASE #容器内的环境变量的key
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: database
+        - name: MYSQL_USER # 机密信息,需要加密
+          valueFrom:
+            secretKeyRef:
+              name: mysql-auth
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-auth
+              key: password
