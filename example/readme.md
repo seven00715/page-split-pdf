@@ -38,5 +38,5 @@ node端单个异步下载  get  /asyncPrint
 node端批量异步下载  post  /asyncManyPrint
 node 异步批量下载，和node异步单个下载类似，只是请求方式变为post，将批量下载的链接和参数传递过去即可
 
-异步下载成功后生成的文件在./static/pdf/目录下
+异步下载成功后生成的文件在./static/pdf/目录下，也可以返回前端，可以在await page.pdf()方法中设置；
 ```
