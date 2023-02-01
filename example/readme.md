@@ -24,6 +24,8 @@ npm run start // 生产后台启动，启动多进程、进程守护
 ## api
 
 ```
+健康检查接口：
+- http://localhost:8090/pdf-server/api/pdf/v1
 
 定义地址 // pdf-server/src/router/index.js
 前端下载 windown.print() or htmlToCanvas()
@@ -40,3 +42,12 @@ node 异步批量下载，和node异步单个下载类似，只是请求方式�
 
 异步下载成功后生成的文件在./static/pdf/目录下，也可以返回前端，可以在await page.pdf()方法中设置；
 ```
+
+- pdf-server 异步架构是：
+  - 两个服务: npm run serve -> server 和 npm run dev -> app
+    - 其中 server 服务负责 push 任务，
+    - 另外一个 app 服务负责处理队列中的任务，这个服务是个多进程服务
+      - 如果部署方式是 docker,多进程开启方式用 cluster/pm2
+      - 如果部署方式是 k8s,这里的代码需要用单进程的方式，用 k8s 的 replicas 设置多个副本，开启多进程
+- http://localhost:8090/pdf-server/api/pdf/v1/ui/ 是异步 UI 可视化界
+  面进度的地址，可以在异步情况方便调试问题；

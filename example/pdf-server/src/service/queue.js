@@ -34,7 +34,7 @@ const initQueue = () => {
     },
     defaultJobOptions: {
       attempts: 3,
-      removeOnComplete: !isProd(),
+      removeOnComplete: isProd(),
       backoff: {
         type: 'fixed',
         delay: 30000,
