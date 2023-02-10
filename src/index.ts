@@ -34,7 +34,7 @@ export class Print {
     if (callback) {
       this.callback = callback
     }
-    this.deviceParams = getDeviceParams()
+    // this.deviceParams = getDeviceParams()
     this.createPrint()
   }
 
@@ -42,7 +42,7 @@ export class Print {
   selectModule: string[] = []
   ModuleInfoSet: ModuleInfo[] = []
   moduleMap = new Map()
-  deviceParams = { width: 0, height: 0 }
+  deviceParams = { width: 794, height: 1120 }
   injectClass: Partial<BaseClass> = {}
   callback = Function.prototype
 
