@@ -41,7 +41,6 @@ exports.reportReason = ({ originUrl, data, token }) => {
   )
   return axios({
     url: `${originUrl}/marketing-product/admin/api/v1/report/structure/pdf/fail`,
-    // url: `http://richgo.chtfundtest.com/aap/api/v1/blackcat/remake/send/report`,
     method: 'POST',
     data,
     headers: {

@@ -53,11 +53,12 @@ async function jobFaild(job, result) {
       msg: `job： ${JSON.stringify(job.data)}, result: ${result}`,
     })
     const { id, token, originUrl } = job.data
-    const ret = await reportReason({
-      originUrl,
-      data: { id, errorReason: result },
-      token,
-    })
+    // 错误上报接口
+    // const ret = await reportReason({
+    //   originUrl,
+    //   data: { id, errorReason: result },
+    //   token,
+    // })
     log({
       msg: 'pdf faild reportReason 接口响应' + JSON.stringify(ret),
     })

@@ -13,7 +13,7 @@ const { initQueue } = require('./service/queue')
 const path = require('path')
 const static = require('koa-static')
 const { processJob } = require('./service/handleJob')
-const port = serverPort || 8085
+const port = serverPort || 8090
 
 const app = new Koa()
 app.use(static(path.resolve(__dirname, '../static/pdf')))
