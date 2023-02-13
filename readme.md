@@ -1,6 +1,6 @@
 # 目前将 html 页面转成 pdf 文件的主流方式
 
-- 完整 demo，见 example 目录
+- 完整 demo，见 当前目录下的 example 目录，demo 细节详见 './example/readme.md'
 
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1abbf0aa9f046c3bf84e18bcd82e6dc~tplv-k3u1fbpfcp-watermark.image?)
 

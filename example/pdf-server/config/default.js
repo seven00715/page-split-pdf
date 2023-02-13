@@ -73,7 +73,7 @@ module.exports = {
     host: '127.0.0.1',
     db: 1,
   },
-  serverPort: 8085,
+  serverPort: 8090,
   // 日志输出
   logs: {
     // 日志地址，默认为项目根目录下的 logs 目录

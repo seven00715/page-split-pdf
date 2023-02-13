@@ -16,7 +16,7 @@ services:
   pdf-server:
     container_name: amc-pdf-server
     image: hubout.xxx.cn/newbanker/pdf-server:202211032047
-    ports: [ '38295:8085' ]
+    ports: [ '38295:8090' ]
     restart: always
     extra_hosts:
       - "xx.xxx.com:192.168.**.**"
