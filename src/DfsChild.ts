@@ -60,12 +60,13 @@ export default class DfsChild extends PdfPage {
       minHeight: 0,
       marginPadHeight: 0
     }
-
+    let expandRow = ele.classList.contains(Const.tableRowExpand)
     // console.log("getMinHeight tbModuleInfo", tbModuleInfo);
     tbModuleInfo.minHeight = this.getMinHeight(
       ele,
       (tbModuleInfo as unknown) as TbModuleInfo,
-      height
+      height,
+      expandRow
     )
     let needMerge = ele.classList.contains(Const.tableRowSpanMerge)
     if (needMerge) {
@@ -78,14 +79,19 @@ export default class DfsChild extends PdfPage {
         tbModuleInfo.tbBomInfo.height)
     tbModuleInfo.marginPadHeight = marginPadHeight
     tbModuleInfo.needMerge = needMerge
-    let expandRow = ele.classList.contains(Const.tableRowExpand)
+
     tbModuleInfo.expandRow = expandRow
     return tbModuleInfo
   }
   /**
    * minHeight 最小高度 = topInfoHeight + tbHeaderheight + row * minRowsCount
    */
-  getMinHeight(ele: HTMLElement, tbModuleInfo: TbModuleInfo, height: number) {
+  getMinHeight(
+    ele: HTMLElement,
+    tbModuleInfo: TbModuleInfo,
+    height: number,
+    expandRow = false
+  ) {
     const nodes = Array.from(ele.querySelectorAll(Const.cardTableTr))
     const { tbTopInfo, tbHeader } = tbModuleInfo
     let threeRowHeight = 0
@@ -96,6 +102,11 @@ export default class DfsChild extends PdfPage {
           threeRowHeight += calcHeight(node as HTMLElement) || 0
         }
         ;(node as any).calcHeight = node.clientHeight
+        if (expandRow) {
+          if (index % 4 < 3 && index % 4 > 0) {
+            node.classList.add(Const.cardTableTr4n)
+          }
+        }
       })
       return tbTopInfo.height + tbHeader.height + threeRowHeight
     } else {

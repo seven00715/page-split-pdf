@@ -5,6 +5,8 @@ export default class Const {
   static cardTableTr = 'tr' // 这里用的tr标签
   static elTableBodyWraper = 'el-table__body-wrapper' // table body wraper classname
 
+  static cardTableTr4n = 'table_tr_4n'
+
   static spliteFlagWraper = 'page-splite-flag-wraper'
   static spliteFlag = 'page-splite-flag' // 固定模块flag class标识
   static tableRowSpanMerge = 'table-rowspan-merge' // rowspan merge flag
