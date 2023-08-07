@@ -31,7 +31,7 @@ npm run start // 生产后台启动，启动多进程、进程守护
 - 接口定义地址 // pdf-server/src/router/index.js
 - 如果是前端下载 windown.print() or htmlToCanvas()
 
-### node端同步下载
+### node 端同步下载
 - get  /syncDownload
   - 前提：node 端同步下载，需要准备的前提
     - Puppeteer 是否下载成功，node 服务和 Puppeteer 都是否成功启动,如果启动成功 会有两条日志：
@@ -51,10 +51,10 @@ npm run start // 生产后台启动，启动多进程、进程守护
     - 如果启动成功 会有两条日志：
       - chrome headless broswer ready,xxxxx
       - pdf server run at 8090 xxxxx
-### node端异步下载接口
-- node端单个异步下载  get  /asyncPrint
-- node端批量异步下载  post  /asyncManyPrint
-  - node 异步批量下载，和node异步单个下载类似，只是请求方式变为post，将批量下载的链接和参数传递过去即可
+### node 端异步下载接口
+- node 端单个异步下载  get  /asyncPrint
+- node 端批量异步下载  post  /asyncManyPrint
+  - node 异步批量下载，和 node 异步单个下载类似，只是请求方式变为post，将批量下载的链接和参数传递过去即可
 
   - 异步下载成功后生成的文件在./static/pdf/目录下，也可以返回前端，可以在await page.pdf()方法中设置；
   <image src="./pdf-server/static/images/async-download-dir.png" />
