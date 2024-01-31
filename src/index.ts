@@ -14,9 +14,10 @@ export interface PrintParmas {
   selectModule?: string[]
   injectClass?: BaseClass
   callback?: Function
+  deviceParams?: {width: number, height: number}
 }
 export class Print {
-  constructor({ selectModule, moduleMap, injectClass, callback }: PrintParmas) {
+  constructor({ selectModule, moduleMap, injectClass, callback, deviceParams }: PrintParmas) {
     // 多个Map模块下载
     if (selectModule && moduleMap) {
       this.selectModule = selectModule
@@ -35,6 +36,9 @@ export class Print {
       this.callback = callback
     }
     // this.deviceParams = getDeviceParams()
+    if(deviceParams){
+      this.deviceParams = deviceParams
+    }
     this.createPrint()
   }
 
@@ -42,7 +46,7 @@ export class Print {
   selectModule: string[] = []
   ModuleInfoSet: ModuleInfo[] = []
   moduleMap = new Map()
-  deviceParams = { width: 794, height: 1120 }
+  deviceParams = { width: 793, height: 1123 }
   injectClass: Partial<BaseClass> = {}
   callback = Function.prototype
 

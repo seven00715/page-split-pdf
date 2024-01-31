@@ -8,6 +8,7 @@ export default class Compose extends SplitePage implements PrintPageDeclare {
     this.pageInfo = module.pageInfo;
     console.log("this.pageInfo", this.pageInfo);
     const { deviceParams, needTpl } = this.pageInfo;
+    console.log('deviceParams', deviceParams)
     const { height, width } = deviceParams || { width: 0, height: 0 };
     this.pageHeight = height;
     this.pageWidth = width;
