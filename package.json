@@ -3,7 +3,7 @@
   "main": "./lib/index.js",
   "module": "dist/nb-fe-pdf.esm-bundler.js",
   "unpkg": "dist/nb-fe-pdf.global.js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "print pdf 算法逻辑,基于原生js,web h5 vue react 都可以调用",
   "directories": {
     "lib": "lib"

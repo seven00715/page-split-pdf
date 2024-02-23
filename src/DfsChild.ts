@@ -60,7 +60,7 @@ export default class DfsChild extends PdfPage {
       minHeight: 0,
       marginPadHeight: 0
     }
-    let expandRow = ele.classList.contains(Const.tableRowExpand)
+    const expandRow = ele.classList.contains(Const.tableRowExpand)
     // console.log("getMinHeight tbModuleInfo", tbModuleInfo);
     tbModuleInfo.minHeight = this.getMinHeight(
       ele,
@@ -68,16 +68,16 @@ export default class DfsChild extends PdfPage {
       height,
       expandRow
     )
-    let needMerge = ele.classList.contains(Const.tableRowSpanMerge)
+    const needMerge = ele.classList.contains(Const.tableRowSpanMerge)
     if (needMerge) {
       this.setRowSpanMergeInfo(ele)
     }
-    let marginPadHeight =
+    const marginPadHeight =
       height -
       (tbModuleInfo.tbTopInfo.height +
         tbModuleInfo.table.height +
         tbModuleInfo.tbBomInfo.height)
-    tbModuleInfo.marginPadHeight = marginPadHeight
+    tbModuleInfo.marginPadHeight = Math.abs(marginPadHeight)
     tbModuleInfo.needMerge = needMerge
 
     tbModuleInfo.expandRow = expandRow
@@ -110,7 +110,7 @@ export default class DfsChild extends PdfPage {
       })
       return tbTopInfo.height + tbHeader.height + threeRowHeight
     } else {
-      nodes.forEach((node, index) => {
+      nodes.forEach((node) => {
         ;(node as any).calcHeight = node.clientHeight
       })
       return height
@@ -118,15 +118,15 @@ export default class DfsChild extends PdfPage {
   }
 
   setRowSpanMergeInfo(ele: HTMLElement) {
-    let needMerge = ele.classList.contains(Const.tableRowSpanMerge)
+    const needMerge = ele.classList.contains(Const.tableRowSpanMerge)
     if (needMerge) {
       const rows = ele.querySelectorAll('.' + Const.cardElRowClass)
-      const mergeTdArgs = []
       let num = 0
+      // @ts-ignore
       let totalRowSpan = 1
       rows.forEach((row, rowIndex) => {
         const tds = row.children
-        let mergedInfo = {
+        const mergedInfo = {
           needMergeRow: false,
           rowIndex,
           tdIndex: null,

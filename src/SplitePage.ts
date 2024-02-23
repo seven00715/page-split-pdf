@@ -1,6 +1,6 @@
 import { ModuleType, PageInfo } from '../index'
 import Const from './const'
-import { TbModuleInfoItem, CurrentStyleElement, Ele, TbQueueItem } from '../index'
+import { TbModuleInfoItem, Ele } from '../index'
 import DfsChild from './DfsChild'
 
 export default class SplitePage extends DfsChild {
@@ -22,6 +22,7 @@ export default class SplitePage extends DfsChild {
     const moduleInfo = this.childMap.get(ele)
     const {
       tbTopInfo,
+      tbHeader,
       table,
       tbBomInfo,
       minHeight,
@@ -37,9 +38,10 @@ export default class SplitePage extends DfsChild {
     } else {
       distance = distance - marginPadHeight
     }
-
+    const emptyTbHeight = Math.abs(marginPadHeight) + tbHeader.height;
+    console.log('emptyTbHeight', emptyTbHeight)
     while (tbQueue.length > 0) {
-      let item: TbModuleInfoItem = tbQueue.shift() as TbModuleInfoItem
+      const item: TbModuleInfoItem = tbQueue.shift() as TbModuleInfoItem
       let flag = false
       if (
         item.module.classList.contains(Const.cardTableTopWraper) &&
@@ -65,7 +67,7 @@ export default class SplitePage extends DfsChild {
         if (item.module.classList.contains(Const.cardTableWraper)) {
           const module = item.module
           const rowQueue = this.findRows(module)
-          const headerDom = rowQueue[0].cloneNode(true)
+          const headerDom = this.findTbHeader(module)
           this.cleanTbody(module)
           this.cloneTable(module as HTMLElement)
           if (distance < minHeight) {
@@ -73,13 +75,13 @@ export default class SplitePage extends DfsChild {
           }
           distance = this.appendModule(
             this.createTBModule(this.cloneEmptyTable as Element),
-            100,
+            emptyTbHeight,
             ModuleType.TBODY
           )
 
-          let tbBomHeight = tbBomInfo.height
+          const tbBomHeight = tbBomInfo.height
           while (rowQueue.length > 0) {
-            let row = rowQueue.shift()
+            const row = rowQueue.shift()
             const height = (row as any).calcHeight
             if (distance > height + tbBomHeight) {
               distance = this.appendModule(row as Element, height, ModuleType.ROW)
@@ -87,7 +89,7 @@ export default class SplitePage extends DfsChild {
               distance = this.createWraper(module)
               distance = this.appendModule(
                 this.createTBModule(this.cloneEmptyTable as Element),
-                100,
+                emptyTbHeight,
                 ModuleType.TBODY
               )
 
@@ -100,7 +102,7 @@ export default class SplitePage extends DfsChild {
                 console.log('needMerge', (row as any).mergedInfo)
                 const { needMergeRow, isLeftRow, needRowSpanNum } = (row as any).mergedInfo
                 if (needMergeRow && isLeftRow && needRowSpanNum) {
-                  let td = document.createElement('td')
+                  const td = document.createElement('td')
                   td.classList.add('el-table_1_column_1')
                   td.classList.add('el-table__cell')
                   td.setAttribute('rowspan', String(needRowSpanNum))
@@ -188,24 +190,29 @@ export default class SplitePage extends DfsChild {
     next(this.cloneEmptyTable as HTMLElement)
   }
 
+  findTbHeader(ele: HTMLElement){
+    const th = ele.querySelector(`.${Const.cardTableTBHeaderWraper}`)
+    return th
+  }
+
   findRows(ele: HTMLElement) {
-    const rows = ele.querySelectorAll(Const.cardTableTr)
+    const rows = ele.querySelectorAll(`.${Const.elTableBodyWraper} ${Const.cardTableTr}`)
     return Array.from(rows)
   }
 
   cleanTbody(ele: HTMLElement) {
-    const rows = ele.querySelectorAll(Const.cardTableTr)
+    const rows = ele.querySelectorAll(`.${Const.elTableBodyWraper}  ${Const.cardTableTr}`)
     Array.from(rows)?.forEach((row) => {
       row.parentNode?.removeChild(row)
     })
   }
 
   createTBModule(cloneEmptyTable: Element) {
-    const moduleTbWraper = document.createElement('div')
+    // const moduleTbWraper = document.createElement('div')
     // moduleTbWraper.setAttribute("style", "border: 3px solid yellow");
     const emptyTable = cloneEmptyTable?.cloneNode(true) as HTMLElement
-    moduleTbWraper.appendChild(emptyTable as HTMLElement)
-    return moduleTbWraper
+    // moduleTbWraper.appendChild(emptyTable as HTMLElement)
+    return emptyTable
   }
 }
 /**
