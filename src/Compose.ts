@@ -27,6 +27,7 @@ export default class Compose extends SplitePage implements PrintPageDeclare {
   init(ele: string) {
     this.rootWraperEle = document.querySelector(ele);
     if (this.rootWraperEle == null) {
+      // @ts-ignore
       if (process.env.NODE_ENV === "production") {
         console.error(`找不到${ele}包裹元素！`);
       } else {

@@ -38,7 +38,10 @@ export default class SplitePage extends DfsChild {
     } else {
       distance = distance - marginPadHeight
     }
-    const emptyTbHeight = Math.abs(marginPadHeight) + tbHeader.height;
+    let emptyTbHeight = Math.abs(marginPadHeight) + tbHeader.height;
+    if(emptyTbHeight < 105){
+      emptyTbHeight = 105
+    }
     console.log('emptyTbHeight', emptyTbHeight)
     while (tbQueue.length > 0) {
       const item: TbModuleInfoItem = tbQueue.shift() as TbModuleInfoItem
