@@ -133,7 +133,9 @@ export default class SplitePage extends DfsChild {
     let idx = 0
     const stack = [...(this.childMap.keys() as any)]
     let flag = true
+
     const next = () => {
+
       if (idx >= stack.length) return
       const ele = stack[idx++]
       if (ele.classList.contains(Const.printImg)) {
@@ -143,11 +145,13 @@ export default class SplitePage extends DfsChild {
           flag = true
         }
       } else {
-        if (flag) {
+        console.log('split this.pageHeight', this.pageHeight, distance);
+        // 当遇到强制换页标识，会立即新起一页
+        const bool = ele.classList.contains(Const.pageForceBreakFlag) && distance < (this.pageHeight * 0.75);
+        if (flag || bool) {
           distance = this.createWraper(ele)
           flag = false
         }
-
         const nodeInfo = this.childMap.get(ele)
         // 剩余距离小于 元素的高度 放不下
         if (distance < nodeInfo.height) {

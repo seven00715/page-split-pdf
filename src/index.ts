@@ -1,23 +1,12 @@
 import Compose from './Compose'
-import { ModuleMap, ModuleInfo, MarkConfig } from '../index'
+import { ModuleMap, ModuleInfo, MarkConfig, PrintParmas,BaseClass } from '../index'
 import { getDeviceParams } from './utils'
 import waterMark from './waterMark'
 import Const from './const'
 
-export interface BaseClass {
-  cardTableTBHeaderWraper: string
-  cardElRowClass: string
-  elTableBodyWraper: string
-}
-export interface PrintParmas {
-  moduleMap: ModuleMap | ModuleInfo
-  selectModule?: string[]
-  injectClass?: BaseClass
-  callback?: Function
-  deviceParams?: {width: number, height: number}
-}
+
 export class Print {
-  constructor({ selectModule, moduleMap, injectClass, callback, deviceParams }: PrintParmas) {
+  constructor({ selectModule, moduleMap, injectClass, callback, deviceParams, pageMargin }: PrintParmas) {
     // 多个Map模块下载
     if (selectModule && moduleMap) {
       this.selectModule = selectModule
@@ -39,14 +28,21 @@ export class Print {
     if(deviceParams){
       this.deviceParams = deviceParams
     }
+    if(pageMargin){
+      this.pageMargin = pageMargin;
+    }
     this.createPrint()
   }
 
+  pageMargin = {
+    top: 0,
+    bottom: 0
+  }
   needFilter = true
   selectModule: string[] = []
   ModuleInfoSet: ModuleInfo[] = []
   moduleMap = new Map()
-  deviceParams = { width: 793, height: 1123 }
+  deviceParams = { width: 790, height: 1120 }
   injectClass: Partial<BaseClass> = {}
   callback = Function.prototype
 
@@ -65,6 +61,18 @@ export class Print {
       if (this.ModuleInfoSet.length - 1 === index) {
         module.pageInfo.lastModule = true
       }
+      
+      const modulePageMargin =  module.pageInfo.pageMargin
+      const notHasTop = modulePageMargin && modulePageMargin.top 
+      if(this.pageMargin.top > 0 && !notHasTop ){
+        module.pageInfo.pageMargin = Object.assign({}, module.pageInfo.pageMargin, {top: this.pageMargin.top })
+      }
+
+      const notHasBottom = modulePageMargin && modulePageMargin.bottom 
+      if(this.pageMargin.bottom > 0 && !notHasBottom){
+        module.pageInfo.pageMargin = Object.assign({}, module.pageInfo.pageMargin, {bottom: this.pageMargin.bottom })
+      }
+
       await this.onPrint(module)
     })
 

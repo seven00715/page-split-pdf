@@ -11,10 +11,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/wangjainxi/nb-fe-pdf",
+  "homepage": "https://github.com/Reesejia/nb-fe-pdf",
   "repository": {
     "type": "git",
-    "url": "git@github.com:wangjainxi/nb-fe-pdf.git"
+    "url": "git@github.com:Reesejia/nb-fe-pdf.git"
   },
   "keywords": [
     "html to pdf",

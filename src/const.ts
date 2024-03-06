@@ -7,6 +7,8 @@ export default class Const {
 
   static cardTableTr4n = 'table_tr_4n'
 
+
+  static pageForceBreakFlag = "page-force-break-flag" // 强制换页
   static spliteFlagWraper = 'page-splite-flag-wraper'
   static spliteFlag = 'page-splite-flag' // 固定模块flag class标识
   static tableRowSpanMerge = 'table-rowspan-merge' // rowspan merge flag
@@ -19,6 +21,15 @@ export default class Const {
 
   static printImg = 'print-img'
   static printImgHeight = 'print-img-height'
+
+  //  元素的class='none-page-margin-top' 优先级 大于pageInfo传入的pagePargin的优先级，
+  static NonePageMarinTop ='none-page-margin-top'  // 在元素classList加了这个标识，即使在全局pagePargin配置了需要top，有这个class的元素所在的page依然没有top;
+  static NonePageMarinBottom ='none-page-margin-bottom'// 在元素classList加了这个标识，即使在全局pagePargin配置了需要bottom，有这个class的元素所在的page依然没有bottom;
+
+  // 配置了pagePargin:{top: Npx, bottom: Npx},会自动在分页后的page合适的位置创建div,并自动加上这两个class;
+  static pageMarginTopFlag = 'page-margin-top-flag' // margintop classname
+  static pageMarginBottomFlag = 'page-margin-bottom-flag' // marginBottom classname
+
 
   static elTbody = 'tbody'
   static minRowsCount = 3

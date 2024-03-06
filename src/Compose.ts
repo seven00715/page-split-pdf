@@ -14,8 +14,10 @@ export default class Compose extends SplitePage implements PrintPageDeclare {
     this.pageWidth = width;
     this.needTpl = needTpl as boolean;
     this.moduleId = module.moduleId;
+    this.module = module;
     this.init(this.moduleId);
   }
+  module!: ModuleInfo;
   rootWraperEle: HTMLElement | null = null;
   wraperDiv = [];
   moduleId: string;

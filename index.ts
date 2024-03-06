@@ -6,6 +6,25 @@ export declare class PrintPageDeclare extends DfsChild {
   print: () => Promise<boolean>
 }
 
+export interface PrintParmas {
+  moduleMap: ModuleMap | ModuleInfo
+  selectModule?: string[]
+  injectClass?: BaseClass
+  callback?: Function
+  deviceParams?: {width: number, height: number},
+  pageMargin?: {
+    top: number;
+    bottom: number;
+  }
+}
+
+export interface BaseClass {
+  cardTableTBHeaderWraper: string
+  cardElRowClass: string
+  elTableBodyWraper: string
+}
+
+
 export enum PrintType {
   NORMAL_TYPE = 'NORMAL_TYPE', // 无头无尾
   HEADER_TYPE = 'HEADER_TYPE', // 有头无尾
@@ -34,6 +53,10 @@ export interface PageInfo {
   defaultType?: PrintType
   waterMark?: boolean
   waterMarkConfig?: MarkConfig // 需要waterMark为true
+  pageMargin?: {
+    top: number;
+    bottom: number;
+  },
   [PropName: string]: any
 }
 export interface ModuleInfo {
