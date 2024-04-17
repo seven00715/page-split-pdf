@@ -1,6 +1,6 @@
 import { Ele, PageInfo, PrintTemplatesTag, TplMap, TplMapItem } from '../index';
 import { ModuleType, PrintType } from '../index'
-import { findTplTag } from './utils'
+import { findSummary, findTplTag } from './utils'
 import DfsChild from './DfsChild'
 import Const from './const'
 /**
@@ -184,6 +184,7 @@ export default class PdfPage {
                 ) as TplMapItem)
         }
         cloneTpl = tplMap.tpl.cloneNode(true) as HTMLDivElement
+        this.insertSummary(cloneTpl, ele)
         cloneTpl.classList.add(className)
         cloneheight = tplMap.height
         cloneTpl.style.height = cloneheight + 'px'
@@ -193,6 +194,16 @@ export default class PdfPage {
     return {
       tpl: cloneTpl,
       heigth: cloneheight,
+    }
+  }
+
+  insertSummary(tplWrapper: HTMLElement, ele: Element){
+    const wrapper = tplWrapper.querySelector(`.${Const.pageSummaryWrapperFlag}`);
+    if(wrapper){
+      const summary = findSummary(ele)
+      if(summary){
+        wrapper.innerHTML = summary
+      }
     }
   }
 

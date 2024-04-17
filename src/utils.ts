@@ -57,3 +57,17 @@ export function createWrapper(classname: string, height: number) {
   div.style.height = divHeight + 'px'
   return div
 }
+
+export function findSummary(ele) {
+  // 获取 container 下的所有子孙节点
+  const descendants = ele.querySelectorAll('*');
+  console.log("descendants", ele, descendants)
+  for (const node of descendants) {
+      // 检查节点是否有 summary 属性
+      if (node.getAttribute('summary')) {
+          // 如果有 summary 属性，返回它的值
+          return node.getAttribute('summary');
+      }
+  }
+  return false;
+}

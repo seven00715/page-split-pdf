@@ -25,12 +25,15 @@ export default class Const {
   //  元素的class='none-page-margin-top' 优先级 大于pageInfo传入的pagePargin的优先级，
   static NonePageMarinTop ='none-page-margin-top'  // 在元素classList加了这个标识，即使在全局pagePargin配置了需要top，有这个class的元素所在的page依然没有top;
   static NonePageMarinBottom ='none-page-margin-bottom'// 在元素classList加了这个标识，即使在全局pagePargin配置了需要bottom，有这个class的元素所在的page依然没有bottom;
-  static NonePageNumber ='none-page-number' // 在元素classList加了这个标识，此页面不计入页码，例如封面
+  static NonePageNumber ='none-page-number' // 在元素classList加了这个标识，此页面不计入页码，也不展示页码，例如封面
 
   // 配置了pagePargin:{top: Npx, bottom: Npx},会自动在分页后的page合适的位置创建div,并自动加上这两个class;
   static pageMarginTopFlag = 'page-margin-top-flag' // margintop classname
   static pageMarginBottomFlag = 'page-margin-bottom-flag' // marginBottom classname
   static pageNumberWrapperFlag = 'page-number-wrapper-flag' // 页码盒子 classname
+  static pageSummaryWrapperFlag = 'page-summary-wrapper-flag' // 摘要盒子 classname
+
+  
 
   static elTbody = 'tbody'
   static minRowsCount = 3
