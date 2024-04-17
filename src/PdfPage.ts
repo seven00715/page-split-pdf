@@ -40,9 +40,9 @@ export default class PdfPage {
       const pageType = this.getPageType(this.ele as HTMLElement)
       if (this.ele?.classList.contains(Const.printImg)) {
         ;(this.ele as HTMLElement).classList.add(Const.printImgHeight)
-        this.wraper = this.createPageWraper(Const.printImgWraper, pageType)
+        this.wraper = this.createPageWraper(Const.printImgWraper, pageType, this.ele)
       } else {
-        this.wraper = this.createPageWraper(Const.printPageWraper, pageType)
+        this.wraper = this.createPageWraper(Const.printPageWraper, pageType, this.ele)
       }
       const { marginTop, marginBottom } = this.createMarginWraper(this.ele)
       let header
@@ -202,10 +202,15 @@ export default class PdfPage {
    * @param pageType PrintType
    * @returns
    */
-  createPageWraper(name: string, pageType: string): HTMLElement {
+  createPageWraper(name: string, pageType: string, ele: HTMLElement): HTMLElement {
+    const classList = ele.classList;
     const wraper = document.createElement('div')
     wraper.classList.add(pageType)
     wraper.classList.add(name)
+    // 保留原有的class
+    for(let i = 0;i <classList.length; i++){
+      wraper.classList.add(classList[i])
+    }
     return wraper
   }
 

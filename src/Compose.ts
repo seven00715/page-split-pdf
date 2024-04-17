@@ -1,6 +1,7 @@
 import { PrintPageDeclare, ModuleInfo, PageInfo, Print } from "../index";
 import Const from "./const";
 import SplitePage from "./SplitePage";
+import { createWrapper } from "./utils";
 
 export default class Compose extends SplitePage implements PrintPageDeclare {
   constructor(module: ModuleInfo) {
@@ -81,7 +82,26 @@ export default class Compose extends SplitePage implements PrintPageDeclare {
         lastChild.classList.add(Const.printLastWraper);
       }
     }
+    const filterArr = Array.from(nodes.children).filter(node => !node.classList.contains(`${Const.NonePageNumber}`))
+    const len = filterArr.length;
+    console.log("filterArr", filterArr)
+    const pageNumberHtml = this.pageInfo.pageNumberHtml; 
+    //   const pageNumberHtml = 'return "第"+pageNo+"页, 共"+len+"页"'
+    let pageNo = 1
+ 
     Array.from(nodes.children).forEach((node, index, arr) => {
+      if(!node.classList.contains(`${Const.NonePageNumber}`)){
+        const pageNoWrapper = createWrapper(`${Const.pageNumberWrapperFlag}`, 20);
+        if(pageNumberHtml){
+          const run = new Function('pageNo', 'len', pageNumberHtml);
+          pageNoWrapper.innerHTML = run(pageNo, len)
+        }else {
+          pageNoWrapper.innerHTML = `第${pageNo}页, 共${len}页`
+        }
+       
+        pageNo ++
+        node.appendChild(pageNoWrapper);
+      }
       this.rootWraperEle?.appendChild(node);
     });
   }

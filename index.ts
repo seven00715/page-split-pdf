@@ -12,6 +12,7 @@ export interface PrintParmas {
   injectClass?: BaseClass
   callback?: Function
   deviceParams?: {width: number, height: number},
+  pageNumberHtml?: string
   pageMargin?: {
     top: number;
     bottom: number;

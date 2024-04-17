@@ -49,3 +49,11 @@ export function findTplTag(tpl: Element) {
     item.startsWith(PrintTemplatesTag.printPdfTpl)
   );
 }
+
+export function createWrapper(classname: string, height: number) {
+  const divHeight = String(height)
+  const div = document.createElement('div')
+  div.classList.add(classname)
+  div.style.height = divHeight + 'px'
+  return div
+}

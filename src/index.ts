@@ -6,7 +6,7 @@ import Const from './const'
 
 
 export class Print {
-  constructor({ selectModule, moduleMap, injectClass, callback, deviceParams, pageMargin }: PrintParmas) {
+  constructor({ selectModule, moduleMap, injectClass, callback, deviceParams, pageMargin, pageNumberHtml }: PrintParmas) {
     // 多个Map模块下载
     if (selectModule && moduleMap) {
       this.selectModule = selectModule
@@ -31,6 +31,9 @@ export class Print {
     if(pageMargin){
       this.pageMargin = pageMargin;
     }
+    if(pageNumberHtml){
+      this.pageNumberHtml = pageNumberHtml
+    }
     this.createPrint()
   }
 
@@ -45,6 +48,7 @@ export class Print {
   deviceParams = { width: 790, height: 1120 }
   injectClass: Partial<BaseClass> = {}
   callback = Function.prototype
+  pageNumberHtml = ''
 
   static completedMap = new Map()
   static completedModule(moduleId: string) {
@@ -71,6 +75,9 @@ export class Print {
       const notHasBottom = modulePageMargin && modulePageMargin.bottom 
       if(this.pageMargin.bottom > 0 && !notHasBottom){
         module.pageInfo.pageMargin = Object.assign({}, module.pageInfo.pageMargin, {bottom: this.pageMargin.bottom })
+      }
+      if(this.pageNumberHtml.length > 0){
+        module.pageInfo.pageNumberHtml = this.pageNumberHtml
       }
 
       await this.onPrint(module)

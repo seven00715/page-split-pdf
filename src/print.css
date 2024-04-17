@@ -46,6 +46,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 .print-img-wraper .print-main-name,
 .print-page-wraper .print-main-name {
@@ -59,4 +60,9 @@
 .print-img-wraper .print-footer-name,
 .print-page-wraper .print-footer-name {
   width: 100%;
+}
+
+.page-number-wrapper-flag{
+  position: absolute;
+  bottom: 10px;
 }
