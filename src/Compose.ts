@@ -82,14 +82,26 @@ export default class Compose extends SplitePage implements PrintPageDeclare {
         lastChild.classList.add(Const.printLastWraper);
       }
     }
-    const filterArr = Array.from(nodes.children).filter(node => !node.classList.contains(`${Const.NonePageNumber}`))
+
+    const  filterArrContent = Array.from(nodes.children).filter(node => {
+      const mainChild = node.querySelector(`.${Const.printMainName}`)
+     const bool2 = mainChild && mainChild.children.length > 0
+      return  bool2;
+    })
+    const filterArr = Array.from(nodes.children).filter(node => {
+      const bool1 = !node.classList.contains(`${Const.NonePageNumber}`);
+      const mainChild = node.querySelector(`.${Const.printMainName}`)
+      console.log("aaaa")
+     const bool2 = mainChild && mainChild.children.length > 0
+      return bool1 && bool2;
+    })
     const len = filterArr.length;
     console.log("filterArr", filterArr)
     const pageNumberHtml = this.pageInfo.pageNumberHtml; 
     //   const pageNumberHtml = 'return "第"+pageNo+"页, 共"+len+"页"'
     let pageNo = 1
  
-    Array.from(nodes.children).forEach((node, index, arr) => {
+    filterArrContent.forEach((node, index, arr) => {
       if(!node.classList.contains(`${Const.NonePageNumber}`)){
         const pageNoWrapper = createWrapper(`${Const.pageNumberWrapperFlag}`, 20);
         if(pageNumberHtml){
