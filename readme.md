@@ -40,11 +40,9 @@
 
 ### 分页效果图
 
-![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f5f1566030794c35a462c7bf46adf3d0~tplv-k3u1fbpfcp-watermark.image?)
 
 ### nb-fe-pdf 算法思想图
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a76cb164e004e428304543cb639e171~tplv-k3u1fbpfcp-watermark.image?)
 
 - nb-fe-pdf 算法是在页面 dom 结构生成完成之后，根据标记，将页面分成一个个模块，计算这些模块的高度，将一个个模块合理的放到 A4 纸中；
 - 类似于拼图游戏，这个拼图游戏是要将一个个模块合理的放到 A4 纸中；
