@@ -2,7 +2,6 @@
 
 - 完整 demo，见 当前目录下的 example 目录，demo 细节详见 './example/readme.md'
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1abbf0aa9f046c3bf84e18bcd82e6dc~tplv-k3u1fbpfcp-watermark.image?)
 
 # 1.不论是哪种方式，只要是将 h5/vue/react/原生 js 页面生成 pdf，都会遇到的问题
 
@@ -452,7 +451,6 @@ export enum PrintType {
 - 在 nb-fe-pdf 对元素的操作是批量的，批量读取元素属性，批量 append 元素，并且这些元素在读取阶段，并没有放到浏览器渲染队列里面，只存储在内存中，在批量 append 元素完会统一放到渲染队列中，统一渲染，尽可能避免刷新渲染队列，以免频繁引起回流；
 -
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b860b648afc849b4aafec02dc92fe6d3~tplv-k3u1fbpfcp-watermark.image?)
 
 ### 为什么要加类似 class="page-split-pdf" flag 标记，为什么标记不能嵌套？
 
@@ -475,8 +473,4 @@ export enum PrintType {
 ### 分页不对
 
 1.  margin 塌陷影响的
-1.  table 分页有问题
-    - 图 1 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6808f0413d6c460989c732c5f84a4138~tplv-k3u1fbpfcp-zoom-1.image)
-    - 图 2![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b6a4e08253e84be7b8e8cb2c184fb9c0~tplv-k3u1fbpfcp-watermark.image?)
-    - 图 2 里面有红色标记的空白属于不正常的，原因是 ”vue-easytable“这个 ui 框架是通过行内样式来控制 table 高度的，正常应该是通过 table 中的内容来撑起来，写在行内的问题是会导致 deepClone 的时候会把这个行内样式也克隆一份，原 table 是 440，克隆 table 高度本来只有 200 多，由于行内样式设置了 height: 440px,导致克隆 table 高度也是 440px，就会有图 2 中的空白；
-    - 处理方式：nb-fe-pdf 做了处理，会将行内 height 重置为：auto；
+1.  table 分页有问
