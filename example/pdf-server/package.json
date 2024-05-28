@@ -1,5 +1,5 @@
 {
-  "name": "amc-pdf-server",
+  "name": "pdf-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,10 +18,6 @@
     "reload": "pm2 reload ./pm2.json",
     "kill": "pm2 kill -n amcPdfServer",
     "stop": "pm2 stop amcPdfServer"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@gitlab.newbanker.cn:10022/nbfe/amc-pdf-server.git"
   },
   "keywords": [],
   "author": "",

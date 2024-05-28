@@ -26,8 +26,8 @@ import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import pdfTpl from './pdfTpl/index.vue'
 import print from './print.vue'
-// import { Print } from 'nb-fe-pdf'
-import { Print } from 'nb-fe-pdf'
+// import { Print } from 'pdf-page-split'
+import { Print } from 'pdf-page-split'
 import downloadMixins from './downloadMixins'
 import step from './step/index.vue'
 import { asyncFetch, DownloadParam } from './utils'
@@ -104,5 +104,5 @@ export default class extends mixins(downloadMixins) {
 }
 </script>
 <style>
-@import 'nb-fe-pdf/print.css';
+@import 'pdf-page-split/print.css';
 </style>

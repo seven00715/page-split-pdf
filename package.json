@@ -1,8 +1,8 @@
 {
-  "name": "nb-fe-pdf",
+  "name": "pdf-page-split",
   "main": "./lib/index.js",
-  "module": "dist/nb-fe-pdf.esm-bundler.js",
-  "unpkg": "dist/nb-fe-pdf.global.js",
+  "module": "dist/pdf-page-split.esm-bundler.js",
+  "unpkg": "dist/pdf-page-split.global.js",
   "version": "1.2.11",
   "description": "print pdf 算法逻辑,基于原生js,web h5 vue react 都可以调用",
   "directories": {
@@ -11,10 +11,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/Reesejia/nb-fe-pdf",
+  "homepage": "https://github.com/Reesejia/pdf-page-split",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Reesejia/nb-fe-pdf.git"
+    "url": "git@github.com:Reesejia/pdf-page-split.git"
   },
   "keywords": [
     "html to pdf",

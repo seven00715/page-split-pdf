@@ -55,7 +55,7 @@ const currentTime = () => {
   }-${date.getDate()}~${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 }
 
-// 在amc-pdf-server 会做判断，无头浏览器用那个请求域名；
+// 在pdf-server 会做判断，无头浏览器用那个请求域名；
 // 如果ng 配置了X-Forwarded-Host 和 X-Forwarded-Protocol 会用得到的，如果没有配置会用这里传入的originUrl字段
 const getHost = (ctx, originUrl, uid) => {
   let xprot = ctx.req.headers['x-forwarded-proto']

@@ -1,5 +1,5 @@
 /*!
-    LibraryName: nb-fe-pdf
+    LibraryName: pdf-page-split
     author: droden
     Date: 2023-0807-19:40
   */
@@ -964,4 +964,4 @@ var pdfPrint = (function (exports) {
     return exports;
 
 })({});
-//# sourceMappingURL=nb-fe-pdf.global.js.map
+//# sourceMappingURL=pdf-page-split.global.js.map

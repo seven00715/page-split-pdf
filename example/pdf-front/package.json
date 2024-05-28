@@ -14,7 +14,7 @@
     "element-resize-detector": "^1.2.4",
     "element-ui": "^2.15.10",
     "moment-mini": "^2.29.4",
-    "nb-fe-pdf": "^1.1.10",
+    "pdf-page-split": "^1.1.10",
     "qs": "^6.11.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
